@@ -1,0 +1,47 @@
+[
+  {
+    "id": "obs_01",
+    "topic": "Greedy Decoding",
+    "observation": "Greedy decoding was deterministic under the tested configuration."
+  },
+  {
+    "id": "obs_02",
+    "topic": "Temperature",
+    "observation": "Lower temperature concentrated probability mass, while higher temperature produced a broader distribution."
+  },
+  {
+    "id": "obs_03",
+    "topic": "Top-k",
+    "observation": "Increasing top-k expanded the fixed-size candidate pool."
+  },
+  {
+    "id": "obs_04",
+    "topic": "Top-p",
+    "observation": "Increasing top-p allowed a larger probability-mass-based candidate pool."
+  },
+  {
+    "id": "obs_05",
+    "topic": "Output Length",
+    "observation": "Increasing max_new_tokens increased total generation latency in the tested runs."
+  },
+  {
+    "id": "obs_06",
+    "topic": "Input Context",
+    "observation": "Input-length timing measurements were non-monotonic across the tested single runs."
+  },
+  {
+    "id": "obs_07",
+    "topic": "TTFT",
+    "observation": "TTFT varied across individual runs and requires repeated controlled measurements for stronger conclusions."
+  },
+  {
+    "id": "obs_08",
+    "topic": "KV Cache",
+    "observation": "The Ollama API did not expose the model's internal KV Cache tensors."
+  },
+  {
+    "id": "obs_09",
+    "topic": "Runtime Observability",
+    "observation": "The runtime exposed aggregate generation metadata but not internal logits, hidden states, attention tensors, or KV Cache tensors."
+  }
+]

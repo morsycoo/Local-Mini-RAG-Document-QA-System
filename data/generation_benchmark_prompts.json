@@ -1,0 +1,122 @@
+[
+  {
+    "id": "gen_001",
+    "category": "general",
+    "prompt": "Explain why sleep is important for learning and memory."
+  },
+  {
+    "id": "gen_002",
+    "category": "general",
+    "prompt": "Compare renewable and non-renewable energy sources using practical examples."
+  },
+  {
+    "id": "gen_003",
+    "category": "general",
+    "prompt": "Explain how public libraries can support lifelong learning in modern communities."
+  },
+  {
+    "id": "gen_004",
+    "category": "general",
+    "prompt": "Explain how urban transportation choices affect congestion, air quality, commuting costs, and accessibility."
+  },
+  {
+    "id": "gen_005",
+    "category": "reasoning",
+    "prompt": "Why might a longer prompt require more inference work than a shorter prompt?"
+  },
+  {
+    "id": "gen_006",
+    "category": "reasoning",
+    "prompt": "A service becomes slower after its input requests grow substantially while its output length stays approximately constant. Identify plausible causes and explain which measurements would help distinguish them."
+  },
+  {
+    "id": "gen_007",
+    "category": "reasoning",
+    "prompt": "Two inference experiments use the same model and prompt but produce different text. The temperature settings are different while the generation limits are identical. Explain a plausible reason for the different outputs."
+  },
+  {
+    "id": "gen_008",
+    "category": "reasoning",
+    "prompt": "An engineer observes that one long-prompt benchmark run finishes faster than one short-prompt run. Explain why this observation alone does not prove that longer prompts are faster."
+  },
+  {
+    "id": "gen_009",
+    "category": "coding",
+    "prompt": "Write a Python function that checks whether an integer is prime."
+  },
+  {
+    "id": "gen_010",
+    "category": "coding",
+    "prompt": "Write a Python function that removes duplicate values from a list while preserving the original order."
+  },
+  {
+    "id": "gen_011",
+    "category": "coding",
+    "prompt": "Implement a Python function that calculates the mean of a list of numbers and handles an empty list."
+  },
+  {
+    "id": "gen_012",
+    "category": "coding",
+    "prompt": "Write a Python function that reads a JSON file and validates that every record contains an id, category, and prompt field."
+  },
+  {
+    "id": "gen_013",
+    "category": "technical",
+    "prompt": "Explain what a token is in a large language model."
+  },
+  {
+    "id": "gen_014",
+    "category": "technical",
+    "prompt": "Explain the difference between logits and probabilities in language model inference."
+  },
+  {
+    "id": "gen_015",
+    "category": "technical",
+    "prompt": "Explain the difference between prefill and decode during autoregressive LLM inference."
+  },
+  {
+    "id": "gen_016",
+    "category": "technical",
+    "prompt": "Explain how a key-value cache can reduce repeated computation during autoregressive generation."
+  },
+  {
+    "id": "gen_017",
+    "category": "summarization",
+    "prompt": "Summarize the following passage in one sentence: Machine learning systems identify patterns in data and use those patterns to make predictions or support decisions."
+  },
+  {
+    "id": "gen_018",
+    "category": "summarization",
+    "prompt": "Summarize this passage in three bullet points: A software team reduced request failures by adding input validation, structured logging, automated tests, and performance monitoring."
+  },
+  {
+    "id": "gen_019",
+    "category": "summarization",
+    "prompt": "Summarize the following passage in approximately 80 words while preserving its main argument, key evidence, and practical implications."
+  },
+  {
+    "id": "gen_020",
+    "category": "summarization",
+    "prompt": "Extract the objective, method, result, and limitation from this report in a compact structured summary."
+  },
+  {
+    "id": "gen_021",
+    "category": "creative",
+    "prompt": "Write a short story about a robot that learns to recognize music."
+  },
+  {
+    "id": "gen_022",
+    "category": "creative",
+    "prompt": "Write a brief dialogue between a scientist and an artist who disagree about whether creativity can be measured."
+  },
+  {
+    "id": "gen_023",
+    "category": "creative",
+    "prompt": "Describe a future library where people can explore scientific ideas through interactive simulations."
+  },
+  {
+    "id": "gen_024",
+    "category": "creative",
+    "prompt": "Write a short speculative fiction scene set in a city where every building can adjust its energy use based on weather and occupant needs."
+  }
+]

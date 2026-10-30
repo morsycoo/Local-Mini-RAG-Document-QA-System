@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111318">
+  <meta name="description" content="حَدُّوتَة — مساعدك الذكي المحلي باللغة العربية">
+  <title>حَدُّوتَة | HADOTA</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/vendor/node_modules/marked/lib/marked.umd.js" defer></script>
+  <script src="/vendor/node_modules/dompurify/dist/purify.min.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="القائمة الجانبية">
+      <a class="brand" href="/" aria-label="HADOTA مساعدك الذكي">
+        <span class="brand-mark">ح</span>
+        <span>
+          <strong>حَدُّوتَة</strong>
+          <small>LOCAL AI ASSISTANT</small>
+        </span>
+      </a>
+
+      <button id="new-chat" class="new-chat" type="button">
+        <span aria-hidden="true">+</span> محادثة جديدة
+      </button>
+
+      <div class="sidebar-heading">محادثاتك السابقة</div>
+      <nav id="conversation-list" class="conversation-list"
+           aria-label="قائمة المحادثات"></nav>
+
+      <div class="sidebar-footer">
+        <span class="status-dot" id="connection-dot"></span>
+        <span id="connection-label">جاهز للاتصال</span>
+        <p>محادثات مؤقتة — بدون حساب</p>
+        <button id="end-session" class="text-button" type="button">
+          إنهاء الجلسة وحذف المحادثات
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <button id="menu-toggle" class="icon-button mobile-only"
+                type="button" aria-label="فتح قائمة المحادثات">☰</button>
+        <div class="topbar-title">
+          <span class="eyebrow">مساحة العمل</span>
+          <strong id="current-title">محادثة جديدة</strong>
+        </div>
+        <span class="topbar-badge"><span class="status-dot"></span> محلي</span>
+      </header>
+
+      <section id="transcript" class="transcript"
+               aria-label="سجل المحادثة" aria-live="polite">
+        <div id="welcome" class="welcome">
+          <div class="welcome-emblem" aria-hidden="true">ح</div>
+          <div class="welcome-kicker">أهلًا بك في حَدُّوتَة</div>
+          <h1>كل حكاية تبدأ<br><span>بسؤال وفكرة جديدة.</span></h1>
+          <p>مساحتك للتفكير والتعلّم والإبداع بمساعدة الذكاء الاصطناعي.<br>
+             اكتب فكرتك وابدأ حوارك.</p>
+          <div class="suggestions">
+            <button type="button" data-prompt="ساعدني أتعلم مهارة جديدة خطوة بخطوة.">
+              <span>01</span><span>تعلّم شيئًا جديدًا</span><b>?</b>
+            </button>
+            <button type="button" data-prompt="Help me explore a new idea step by step.">
+              <span>02</span><span>Explore a new idea</span><b>?</b>
+            </button>
+            <button type="button" data-prompt="ساعدني في تنظيم أفكاري ووضع خطة واضحة.">
+              <span>03</span><span>نظّم أفكارك وخطّط</span><b>?</b>
+            </button>
+          </div>
+        </div>
+        <div id="messages" class="messages"></div>
+      </section>
+
+      <div id="notice" class="notice" role="status" hidden></div>
+
+      <section class="composer-area" aria-label="كتابة الرسائل">
+        <form id="composer" class="composer">
+          <label class="visually-hidden" for="message-input">نص الرسالة</label>
+          <textarea id="message-input" rows="1" maxlength="4000"
+                    placeholder="اكتب رسالتك هنا..." required></textarea>
+          <div class="composer-bottom">
+            <span>Enter للإرسال · Shift + Enter لسطر جديد</span>
+            <button id="send-button" class="send-button" type="submit"
+                    aria-label="إرسال الرسالة">
+              <span id="send-label">إرسال</span><span aria-hidden="true">?</span>
+            </button>
+          </div>
+        </form>
+        <p class="privacy-note">المحادثات مؤقتة. لا ترسل كلمات مرور أو مفاتيح API أو بيانات حساسة؛ تُحذف المحادثات عند انتهاء الجلسة أو إعادة تشغيل التطبيق.</p>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

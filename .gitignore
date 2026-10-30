@@ -1,0 +1,91 @@
+```gitignore
+# ==========================================
+# Secrets and environment overrides
+# ==========================================
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# Python
+# ==========================================
+__pycache__/
+*.py[cod]
+*.pyd
+.venv/
+venv/
+env/
+
+# ==========================================
+# Testing and coverage
+# ==========================================
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# ==========================================
+# Node dependencies
+# ==========================================
+node_modules/
+frontend/vendor/node_modules/
+
+# ==========================================
+# Logs, local databases, and generated output
+# ==========================================
+*.log
+*.sqlite
+*.sqlite3
+*.db
+outputs/
+
+# ==========================================
+# Large local models and checkpoints
+# ==========================================
+models/
+checkpoints/
+*.gguf
+*.safetensors
+
+# ==========================================
+# Backups and temporary copies
+# ==========================================
+*.bak
+*.bak-*
+*.backup
+*.broken-backup
+*.old
+*.orig
+*.rej
+*.save
+*~
+
+maintenance_backups/
+backups/
+backup/
+
+# ==========================================
+# Generated archives
+# ==========================================
+*.zip
+*.7z
+*.rar
+
+# ==========================================
+# Generated audit and patch artifacts
+# ==========================================
+HADOTA_*_AUDIT*.zip
+HADOTA_*_PATCH*.zip
+
+# ==========================================
+# Local IDE and operating system files
+# ==========================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+```
+# Generated ingestion reports
+reports/day_1_ingestion_report.json
