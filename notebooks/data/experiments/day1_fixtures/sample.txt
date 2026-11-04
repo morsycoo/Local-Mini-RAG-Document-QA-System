@@ -1,0 +1,11 @@
+HADOTA Local AI Assistant
+
+HADOTA is a local AI assistant powered by Qwen through Ollama.
+
+The application uses FastAPI as its backend framework.
+
+The system supports conversation management, structured outputs, and local language model inference.
+
+The project is being extended with Retrieval-Augmented Generation.
+
+RAG enables the assistant to retrieve relevant information from external knowledge sources before generating an answer.
