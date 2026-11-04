@@ -89,3 +89,14 @@ Thumbs.db
 ```
 # Generated ingestion reports
 reports/day_1_ingestion_report.json
+
+# ==========================================
+# Generated RAG ingestion data
+# ==========================================
+data/knowledge_base/processed/
+data/experiments/day1_fixtures/storage/
+
+# ==========================================
+# Unused historical notebook fixtures
+# ==========================================
+notebooks/data/experiments/day1_fixtures/
