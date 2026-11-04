@@ -1,0 +1,7 @@
+﻿Document Ingestion CLI Test
+
+This is a controlled test document.
+It contains English text and Arabic text: الذكاء الاصطناعي.
+Its purpose is to validate document ingestion.
+
+Updated content: Testing document version changes.
