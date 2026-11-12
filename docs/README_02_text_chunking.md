@@ -1,8 +1,8 @@
-# Day 2 — Text Chunking and Document Structure Preservation
+# Text Chunking and Document Structure Preservation
 
 ## 1. Overview
 
-Day 2 implements and evaluates the text-chunking layer of the **Local Mini RAG Document QA System**.
+We implements and evaluates the text-chunking layer of the **Local Mini RAG Document QA System**.
 
 The objective is to transform the processed page records produced by Day 1 into traceable `ChunkRecord` objects while preserving as much of the source document's structure and provenance as possible.
 
@@ -13,11 +13,11 @@ Two chunking strategies were implemented and compared:
 
 The experiment selected `recursive_markdown` as the primary strategy. The fixed-window implementation remains available as a baseline.
 
-Day 2 ends at chunk creation, validation, comparison, and persistence. Embeddings, vector databases, retrieval, reranking, and LLM answer generation are outside this day's scope.
+Ends at chunk creation, validation, comparison, and persistence. Embeddings, vector databases, retrieval, reranking, and LLM answer generation are outside this day's scope.
 
 ## 2. Goals and Deliverables
 
-The Day 2 work had the following goals:
+The work had the following goals:
 
 - Reuse the processed records created by Day 1 rather than rebuilding ingestion.
 - Inspect the source corpus and identify its document structure.
@@ -33,7 +33,7 @@ The Day 2 work had the following goals:
 
 ## 3. Input Corpus and Existing Day 1 Artifacts
 
-Day 2 consumes the processed JSONL files created by Day 1. It does not re-ingest the original files.
+Consumes the processed JSONL files created by Day 1. It does not re-ingest the original files.
 
 ### 3.1 Input files
 
@@ -86,7 +86,7 @@ The chunking layer uses the document identifier, page number, and page content t
 
 ## 4. Repository Components
 
-The Day 2 implementation and tests are organized as follows:
+The implementation and tests are organized as follows:
 
 ```text
 app/
@@ -121,7 +121,7 @@ reports/
 └── day_1_ingestion_report.json
 ```
 
-The tree lists the relevant files observed during the Day 2 repository audit; it is not intended to be a complete inventory of the entire repository.
+The tree lists the relevant files observed during the repository audit; it is not intended to be a complete inventory of the entire repository.
 
 ### 4.1 `app/chunking/models.py`
 
@@ -264,7 +264,7 @@ The Markdown parsing work identifies blocks and heading context before structure
 
 ### 8.1 Structural elements considered
 
-The parser and its tests cover the Markdown constructs used in the Day 2 work, including:
+The parser and its tests cover the Markdown constructs used in this work, including:
 
 - ATX headings and heading hierarchy.
 - Paragraphs.
@@ -426,7 +426,7 @@ The fixed-window strategy remains as a baseline for future comparisons.
 
 The decision favors recursive Markdown because it achieved higher structural preservation while maintaining full source coverage and zero recorded integrity errors. Its larger chunk count and higher processing time are accepted for the current corpus.
 
-This is an engineering decision based on the Day 2 measurements. It should be revisited if later retrieval evaluation shows that a different chunk size, overlap policy, or strategy produces better end-to-end results.
+This is an engineering decision based on the measurements. It should be revisited if later retrieval evaluation shows that a different chunk size, overlap policy, or strategy produces better end-to-end results.
 
 ## 12. Persistence and Reload Validation
 
@@ -443,7 +443,7 @@ The selected recursive strategy generated 228 records. All 228 records were pers
 
 The project already provides generic JSONL persistence through `persist_jsonl()` in `app/ingestion/pipeline.py`. The implementation writes to a temporary file in the destination directory, flushes and synchronizes the data, and then replaces the destination file. This supports atomic replacement of the JSONL output rather than writing partially generated records directly to the final path.
 
-Day 2 reused this existing persistence infrastructure rather than introducing a separate storage mechanism.
+Reused this existing persistence infrastructure rather than introducing a separate storage mechanism.
 
 ### 12.3 Reload validation results
 
@@ -470,7 +470,7 @@ The persistence experiment reported the following checks as passing:
 
 ## 13. Notebook Workflow
 
-The Day 2 experiments and implementation notes are documented in:
+The experiments and implementation notes are documented in:
 
 ```text
 notebooks/02_text_chunking.ipynb
@@ -539,7 +539,7 @@ Result:
 515 passed
 ```
 
-These results refer to the test runs completed during Day 2. Run the commands again after subsequent code changes to verify the current repository state.
+These results refer to the test runs completed. Run the commands again after subsequent code changes to verify the current repository state.
 
 ## 15. Reproduction Commands
 
@@ -567,7 +567,7 @@ python -m pytest tests/chunking -v
 python -m pytest -q
 ```
 
-### 15.4 Open the Day 2 notebook
+### 15.4 Open notebook
 
 ```powershell
 jupyter notebook notebooks/02_text_chunking.ipynb
@@ -577,7 +577,7 @@ Alternatively, open the notebook directly in VS Code and select the project's Py
 
 ## 16. Known Limitations and Follow-up Work
 
-The following points are known boundaries of the current Day 2 implementation or experiment.
+The following points are known boundaries of the current implementation or experiment.
 
 ### 16.1 Small recursive chunks
 
@@ -597,13 +597,13 @@ The timing samples are small and specific to the current machine and execution e
 
 ### 16.5 Corpus coverage
 
-The inspected Day 2 corpus consisted of six Markdown files represented by six page records. The notebook contains design and inspection work related to file-type routing, but the reported comparison results are specifically for this Markdown corpus. They do not establish equivalent behavior for every PDF, TXT, HTML, or other document type.
+The inspected corpus consisted of six Markdown files represented by six page records. The notebook contains design and inspection work related to file-type routing, but the reported comparison results are specifically for this Markdown corpus. They do not establish equivalent behavior for every PDF, TXT, HTML, or other document type.
 
 ### 16.6 CLI and unified chunking pipeline
 
-The Day 2 repository audit did not find a dedicated `app/chunking/cli.py` or `app/chunking/pipeline.py`. These are not represented as completed Day 2 deliverables in this README. They can be introduced in a later integration task if the application workflow requires them.
+The repository audit did not find a dedicated `app/chunking/cli.py` or `app/chunking/pipeline.py`. These are not represented as completed deliverables in this README. They can be introduced in a later integration task if the application workflow requires them.
 
-## 17. Explicitly Out of Scope for Day 2
+## 17. Explicitly Out of Scope
 
 The following work was intentionally deferred:
 
@@ -618,7 +618,7 @@ The following work was intentionally deferred:
 
 These components belong to later stages of the RAG system.
 
-## 18. Final Day 2 Status
+## 18. Final Status
 
 | Deliverable | Status |
 |---|---|
@@ -636,6 +636,6 @@ These components belong to later stages of the RAG system.
 | Reload and validate persisted outputs | Complete; 0 validation errors |
 | Focused chunking tests | 53 passed |
 | Full project regression | 515 passed |
-| Day 2 notebook | Complete; 126 cells, 33 code cells executed |
+| Notebook | Complete; 126 cells, 33 code cells executed |
 
 **Day 2 is complete.** The project has a tested chunking layer, persisted chunk records, a reproducible comparison artifact, and a documented strategy decision. The next RAG stage can consume `chunks.jsonl` as its chunk-level input, subject to the next stage's embedding and retrieval design.
