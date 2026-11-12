@@ -4,7 +4,7 @@
 
 We implements and evaluates the text-chunking layer of the **Local Mini RAG Document QA System**.
 
-The objective is to transform the processed page records produced by Day 1 into traceable `ChunkRecord` objects while preserving as much of the source document's structure and provenance as possible.
+The objective is to transform the processed page records produced by into traceable `ChunkRecord` objects while preserving as much of the source document's structure and provenance as possible.
 
 Two chunking strategies were implemented and compared:
 
@@ -19,7 +19,7 @@ Ends at chunk creation, validation, comparison, and persistence. Embeddings, vec
 
 The work had the following goals:
 
-- Reuse the processed records created by Day 1 rather than rebuilding ingestion.
+- Reuse the processed records created rather than rebuilding ingestion.
 - Inspect the source corpus and identify its document structure.
 - Establish a consistent `ChunkRecord` data contract.
 - Implement a fixed-window baseline.
@@ -31,9 +31,9 @@ The work had the following goals:
 - Reload persisted records and validate them.
 - Run focused chunking tests and the full project regression suite.
 
-## 3. Input Corpus and Existing Day 1 Artifacts
+## 3. Input Corpus and Existing Artifacts
 
-Consumes the processed JSONL files created by Day 1. It does not re-ingest the original files.
+Consumes the processed JSONL files created. It does not re-ingest the original files.
 
 ### 3.1 Input files
 
@@ -622,7 +622,7 @@ These components belong to later stages of the RAG system.
 
 | Deliverable | Status |
 |---|---|
-| Reuse Day 1 processed records | Complete |
+| Reuse processed records | Complete |
 | Inspect and validate source corpus | Complete |
 | Define and validate `ChunkRecord` | Complete |
 | Implement fixed-window baseline | Complete |
