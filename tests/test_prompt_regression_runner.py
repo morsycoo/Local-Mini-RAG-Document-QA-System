@@ -5,7 +5,8 @@ from types import SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
-from live_regression_runner import _run_case, evaluate_response
+
+from tests.live_regression_runner import _run_case, evaluate_response
 
 
 @pytest.mark.parametrize(
