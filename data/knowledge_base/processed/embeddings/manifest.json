@@ -1,0 +1,27 @@
+{
+  "artifact_format": "local-mini-rag-embeddings",
+  "artifact_version": 1,
+  "created_at_utc": "2026-11-20T21:18:01.042759+00:00",
+  "source": {
+    "file": "chunks.jsonl",
+    "sha256": "5d8b10ac55184124f0b0ffe7e4fad1bafd340e27d248cb31a61db4ce8d831fa2",
+    "chunk_count": 228
+  },
+  "model": {
+    "model_id": "intfloat/multilingual-e5-base",
+    "revision": "ea6fe3baa7f6bfe27fbc99fde19d01b3e2bca610",
+    "embedding_dimension": 768,
+    "max_sequence_length": 512,
+    "normalize_embeddings": true,
+    "query_prefix": "query: ",
+    "passage_prefix": "passage: "
+  },
+  "embeddings": {
+    "file": "embeddings.npz",
+    "count": 228,
+    "dimension": 768,
+    "dtype": "float32",
+    "normalized": true,
+    "sha256": "1587343fa3e0c2b0bdca75999572684de5d6f1a247f08842c86cefcacfdc773e"
+  }
+}

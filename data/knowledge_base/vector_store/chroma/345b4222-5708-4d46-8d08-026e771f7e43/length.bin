@@ -1,0 +1,4 @@
+### Tokenizer test asset
+
+Some token-counter tests require the local tokenizer file `assets/tokenizers/qwen3.8-27b/tokenizer.json`. The earlier uploaded audit archive omitted that large file because of archive-collection limits; the Windows development copy may contain it. Do not assume it is missing just because it was not present in an uploaded snapshot. Confirm the actual file on the machine.
+
