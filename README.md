@@ -2,7 +2,7 @@
 
 A local-first Retrieval-Augmented Generation (RAG) project that builds a document knowledge base through ingestion, structure-aware chunking, multilingual embeddings, and persistent vector storage. Semantic retrieval is the next implementation stage.
 
-> **Current status:** Week 16 — Day 3 completed. Retrieval relevance and answer quality have not yet been evaluated.
+> **Current status:** Day 3 completed. Retrieval relevance and answer quality have not yet been evaluated.
 
 ## Project Overview
 
