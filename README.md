@@ -1,253 +1,240 @@
-# Local Mini RAG Document QA System
+# Local Mini RAG Document Question Answering System
 
-> **Project status:** In progress  
-> **Current milestone:** RAG Fundamentals  
-> **Completed:** Document Loading & Text Extraction and Text Chunking 
-> **Execution model:** Local-first; source processing runs on the developer's machine.
+A local-first Retrieval-Augmented Generation (RAG) project that builds a document knowledge base through ingestion, structure-aware chunking, multilingual embeddings, and persistent vector storage. Semantic retrieval is the next implementation stage.
 
-HADOTA-RAG is a local document question-answering project being built around the technical knowledge base of **HADOTA (حَدُّوتَة)**. The goal is to build the RAG pipeline step by step: ingest source documents, preserve their structure, create traceable chunks, generate multilingual embeddings, retrieve relevant evidence, and eventually produce answers grounded in those sources.
+> **Current status:** Week 16 — Day 3 completed. Retrieval relevance and answer quality have not yet been evaluated.
 
-This repository is a work in progress. It currently contains the document ingestion and chunking layers. **It does not yet implement embeddings, vector search, retrieval, or LLM-generated answers.**
-
----
-
-## Current capabilities
-
-### 1. Document loading and text extraction — complete
-
-The ingestion layer discovers supported files, extracts text, validates records, tracks source provenance, and persists the result for later processing.
-
-- Recursive discovery of `.pdf`, `.md`, and `.txt` files.
-- UTF-8 and UTF-8 BOM-aware text loading.
-- Native-text PDF extraction with PyMuPDF, retaining PDF page boundaries.
-- Pydantic validation for document, page, and ingestion-result records.
-- Deterministic document IDs and SHA-256 source/content hashes.
-- Detection of new, updated, unchanged, and duplicate-content documents.
-- JSONL persistence for document and page records.
-- Failure handling and tested rollback behavior for the two JSONL stores.
-- A local CLI and automated tests.
-
-**Observed corpus snapshot:** six Markdown source documents, 118,204 extracted characters, six logical page records, and zero extraction failures. Re-running ingestion classified all six files as unchanged.
-
-> PDF extraction currently reads embedded/native text. Scanned or image-only PDFs are not OCR-processed. Complex PDF layouts and tables may require separate handling.
-
-### 2. Text chunking — complete
-
-The chunking layer consumes the processed page records and creates validated, source-traceable `ChunkRecord` objects.
-
-Two strategies were implemented and compared:
-
-- **Fixed-window:** character-based windows with a 180-character overlap.
-- **Recursive Markdown:** structure-aware chunking using Markdown blocks and heading context.
-
-The primary strategy selected for the current corpus is **`recursive_markdown`**. The fixed-window strategy remains available as a baseline.
-
-Each chunk retains provenance fields such as:
-
-- `document_id` and `page_number`
-- `chunk_index`
-- `char_start` and `char_end`
-- `section_path`
-- `content_hash`
-- `strategy`, `config_signature`, and `chunking_version`
-
-Chunk records are saved in `data/knowledge_base/processed/chunks.jsonl`, while the strategy comparison is saved in `reports/chunking_comparison.json`.
-
-### Experiment results
-
-Both strategies were evaluated against the same six page records and 118,204 source characters.
-
-| Metric | Fixed-window | Recursive Markdown |
-|---|---:|---:|
-| Generated chunks | 119 | 228 |
-| Mean chunk size | 1,164.24 chars | 518.44 chars |
-| Source coverage | 100.00% | 100.00% |
-| Structural blocks preserved | 699 / 740 | 731 / 740 |
-| Structural preservation | 94.46% | 98.78% |
-| Integrity errors | 0 | 0 |
-| Median processing time | 0.000070 s | 0.011590 s |
-
-The recursive strategy produced more, smaller chunks and preserved a larger percentage of the detected Markdown blocks. It was selected for the current knowledge base based on these measured results. Structural preservation is a document-structure metric; it does not by itself prove retrieval quality or answer accuracy.
-
-**Important implementation notes:**
-
-- The recursive API does not currently expose an overlap parameter; the 180-character overlap applies only to fixed-window chunking.
-- Nineteen recursive chunks were shorter than 100 characters. They were retained to avoid merging across structural boundaries. Their usefulness will be evaluated during retrieval work.
-- The current measured comparison corpus contains six Markdown documents. The existence of TXT/PDF extraction support does not mean the chunking comparison has been validated across a large or diverse PDF/TXT corpus.
-
----
-
-## Pipeline: current state and target
-
-### Implemented
+## Project Overview
 
 ```text
 Source Documents
       |
       v
-Document Discovery
+Document Ingestion & Text Extraction
       |
       v
-Text Extraction
+Document / Page Records (JSONL)
       |
       v
-Validated Document / Page Records
+Text Chunking
       |
       v
-JSONL Persistence
+Chunk Records (JSONL)
       |
       v
-Fixed-window and Recursive Markdown Chunking
+Multilingual E5 Embeddings
       |
       v
-Validated Chunk Records
+Persistent ChromaDB Collection
       |
       v
-chunks.jsonl
+Semantic Retrieval                 <- Next stage
+      |
+      v
+RAG Context Construction
+      |
+      v
+LLM Answer Generation
 ```
 
-### Planned next stages
+The current implementation is local and does not require a hosted vector database or cloud inference service.
+
+## Implemented Stages
+
+### Day 1 — Document Loading & Text Extraction
+
+Implemented a reproducible ingestion layer for PDF, Markdown, and plain-text sources.
+
+- Recursive discovery of supported files with safety checks.
+- Native text extraction from `.pdf`, `.md`, and `.txt`.
+- Page-level records for PDFs and logical-page records for TXT/Markdown.
+- Pydantic validation for document, page, and ingestion-result records.
+- Deterministic document IDs and SHA-256 source/content hashes.
+- Duplicate, unchanged, and updated-document detection.
+- JSONL persistence with atomic per-file replacement and rollback handling.
+- CLI entry point and automated tests.
+
+**Recorded validation:** 96 ingestion tests passed; the full project suite recorded at the end of Day 1 reported 462 passing tests.
+
+**Boundary:** PDF extraction is native-text extraction, not OCR. Scanned/image-only PDFs and complex layout reconstruction are not covered.
+
+### Day 2 — Text Chunking & Document Structure Preservation
+
+Implemented and compared two chunking strategies using the processed page records from Day 1.
+
+- Fixed-window chunking as a baseline.
+- Markdown-aware recursive chunking.
+- Parsing of headings, paragraphs, lists, tables, fenced code blocks, and horizontal rules.
+- Preservation of source offsets, page numbers, document IDs, section paths, and chunking configuration metadata.
+- Pydantic `ChunkRecord` validation.
+- Chunk persistence and reload validation.
+
+**Recorded corpus:** 6 Markdown documents, 6 page records, and 118,204 source characters.
+
+| Metric | Fixed-window | Recursive Markdown |
+|---|---:|---:|
+| Generated chunks | 119 | 228 |
+| Source coverage | 100.00% | 100.00% |
+| Structural preservation | 94.46% | 98.78% |
+| Integrity errors | 0 | 0 |
+| Median processing time | 0.000070 s | 0.011590 s |
+
+`recursive_markdown` was selected as the primary strategy based on the recorded corpus experiment. Fixed-window remains available as a baseline.
+
+**Recorded validation:** 53 chunking tests passed; the full project suite recorded at the end of Day 2 reported 515 passing tests.
+
+### Day 3 — Embeddings & Local Vector Database
+
+Implemented the embedding-generation and persistent vector-storage layer.
+
+**Embedding model**
+
+- Model: `intfloat/multilingual-e5-base`
+- Pinned revision: `ea6fe3baa7f6bfe27fbc99fde19d01b3e2bca610`
+- Embedding dimension: 768
+- Data type: `float32`
+- L2 normalization: enabled
+- Passage prefix: `passage: `
+- Query prefix for retrieval: `query: `
+- Maximum sequence length: 512 tokens
+
+**Embedding results**
+
+| Metric | Recorded result |
+|---|---:|
+| Source chunks | 228 |
+| Generated embeddings | 228 |
+| Embedding matrix | `(228, 768)` |
+| Zero vectors | 0 |
+| Non-finite values | 0 |
+| Mean L2 norm | 1.0 |
+| Maximum complete passage input | 452 tokens |
+| Token-limit overflows | 0 |
+
+Embeddings and their manifest are persisted under:
 
 ```text
-chunks.jsonl
-      |
-      v
-Multilingual Embedding Generation
-      |
-      v
-Local Vector Store
-      |
-      v
-Similarity Search and Metadata Filtering
-      |
-      v
-Retrieved Evidence
-      |
-      v
-Grounded Answer Generation
-      |
-      v
-Document Question Answering
+data/knowledge_base/processed/embeddings/
+├── embeddings.npz
+└── manifest.json
 ```
 
-The planned stages are not represented as completed functionality yet.
+**Vector database**
 
----
+- ChromaDB persistent client.
+- Collection: `hadota_chunks_e5_base_v1`
+- Distance metric: cosine.
+- Embedding function: `None` (vectors are generated externally by the pinned E5 model).
+- Persistent storage: `data/knowledge_base/vector_store/chroma/`.
 
-## Repository structure
+**Recorded indexing and integrity results**
 
-The following is the current project structure relevant to the completed ingestion and chunking work. Additional application files may exist outside this view.
+- 228 chunks indexed with embeddings and metadata.
+- Collection successfully reopened through a new persistent client.
+- 228 stored IDs; no missing or unexpected IDs.
+- Re-indexing left the collection at 228 records, with no duplicate records created.
+- Three sampled records were inspected for text, metadata, and embedding consistency.
+
+**Recorded validation:** 146 dedicated vector-store tests passed. The recorded full project test run reported 727 passed, 0 failed, and 23 ChromaDB deprecation warnings. Code coverage was not measured.
+
+**Important limitation:** successful indexing and integrity checks do not establish retrieval relevance or answer quality.
+
+## Repository Artifacts
 
 ```text
-HADOTA-RAG/
-├── app/
-│   ├── ingestion/
-│   │   ├── models.py
-│   │   ├── discovery.py
-│   │   ├── extractors.py
-│   │   ├── pipeline.py
-│   │   └── cli.py
-│   └── chunking/
-│       ├── models.py
-│       ├── strategies.py
-│       ├── markdown.py
-│       ├── markdown_parser.py
-│       └── recursive.py
-├── data/
-│   └── knowledge_base/
-│       ├── raw/                    # Original source documents
-│       └── processed/
-│           ├── documents.jsonl
-│           ├── pages.jsonl
-│           └── chunks.jsonl
-├── docs/
-│   ├── README_01_document_loading_and_text_extraction.md
-│   └── README_02_text_chunking.md
-├── notebooks/
-│   ├── 01_document_loading_and_text_extraction.ipynb
-│   └── 02_text_chunking.ipynb
-├── reports/
-│   └── chunking_comparison.json
-└── tests/
-    ├── ingestion/
-    └── chunking/
+data/
+└── knowledge_base/
+    ├── raw/                         # Original source documents
+    ├── processed/
+    │   ├── documents.jsonl
+    │   ├── pages.jsonl
+    │   ├── chunks.jsonl
+    │   └── embeddings/
+    │       ├── embeddings.npz
+    │       └── manifest.json
+    └── vector_store/
+        └── chroma/                  # Persistent local ChromaDB data
+
+app/
+├── ingestion/
+├── chunking/
+├── embeddings/
+└── vector_store/
+
+notebooks/
+├── 01_document_loading_and_text_extraction.ipynb
+├── 02_text_chunking.ipynb
+└── 03_embeddings_and_vector_database.ipynb
+
+reports/
+└── 3_embedding_report.json
+
+tests/
+├── ingestion/
+├── chunking/
+├── embeddings/
+└── vector_store/
 ```
 
----
+This is a high-level map of relevant project components. Generated local data and the ChromaDB persistence directory may be excluded from version control.
 
-## Reproducing the current work
+## Technology Stack
+
+- **Language:** Python 3.13
+- **Data validation:** Pydantic
+- **PDF extraction:** PyMuPDF
+- **Embeddings:** Sentence Transformers, `intfloat/multilingual-e5-base`
+- **Vector database:** ChromaDB
+- **Numerical processing:** NumPy
+- **Testing:** pytest
+- **Experimentation:** Jupyter Notebook
+
+## Current Scope and Limitations
+
+The project currently provides document ingestion, chunking, embedding generation, and persistent vector indexing.
+
+Not yet implemented or evaluated:
+
+- Semantic query retrieval and ranked search results.
+- Retrieval metrics such as Recall@K, Precision@K, MRR, or NDCG.
+- Similarity-threshold selection and retrieval-latency benchmarking.
+- Hybrid lexical/vector retrieval or reranking.
+- RAG context construction and LLM answer generation.
+- Production deployment.
+
+The current corpus is small (6 documents and 228 chunks). Results should not be generalized to large or diverse knowledge bases without further evaluation.
+
+## Next Stage — Semantic Retrieval & Similarity Search
+
+The next stage will reuse the existing artifacts and persistent ChromaDB collection:
+
+1. Validate a non-empty user query.
+2. Encode the query using the same pinned E5 model revision, with the `query: ` prefix.
+3. Validate a normalized 768-dimensional query vector.
+4. Query the existing ChromaDB collection using cosine distance and configurable Top-K.
+5. Return ranked chunks with text, source identifiers, metadata, and distance.
+6. Add automated tests and qualitative retrieval experiments.
+
+The existing document embeddings and ChromaDB collection should not be regenerated or reset without a separately justified migration.
+
+## Reproducibility
 
 Run commands from the repository root using the project's configured Python environment.
 
-### Run document ingestion
-
-```bash
-python -m app.ingestion.cli --help
-python -m app.ingestion.cli
-```
-
-The CLI's `--help` output is the authoritative reference for its available options and configured paths.
-
-### Run tests
-
-```bash
-python -m pytest tests/ingestion/ -v
-python -m pytest tests/chunking/ -v
+```powershell
 python -m pytest -q
 ```
 
-The recorded results at the end of Day 2 were:
+Open the notebooks in order:
 
-| Test run | Result |
-|---|---:|
-| Ingestion tests | 96 passed |
-| Chunking tests | 53 passed |
-| Full project regression | 515 passed |
+```text
+notebooks/01_document_loading_and_text_extraction.ipynb
+notebooks/02_text_chunking.ipynb
+notebooks/03_embeddings_and_vector_database.ipynb
+```
 
-These are historical results from the recorded development runs. Re-run the commands after code or dependency changes to verify the current checkout.
+For exact environment versions, experiment metrics, artifact hashes, and validation details, refer to the corresponding Day 1, Day 2, and Day 3 documentation and `reports/3_embedding_report.json`.
 
----
+## Project Principle
 
-## Technology
-
-| Area | Technology |
-|---|---|
-| Language | Python 3.13 |
-| Data validation | Pydantic |
-| PDF text extraction | PyMuPDF |
-| Persistence for ingestion/chunk outputs | JSON Lines (JSONL) |
-| Tests | pytest |
-| Notebook experiments | Jupyter Notebook |
-
-No embedding model or vector database is part of the implemented pipeline at this stage.
-
----
-
-## Current limitations
-
-- No OCR for scanned/image-only PDFs.
-- No dedicated layout reconstruction for complex PDF columns or tables.
-- Recursive Markdown chunking currently has no configurable overlap.
-- Small structure-preserving chunks have not yet been evaluated through retrieval.
-- JSONL persistence is suitable for this local learning project but does not provide a transactional multi-writer database.
-- No embedding generation, vector index, similarity search, retrieval, reranking, or generated answers yet.
-- No production deployment or cloud service is claimed.
-
----
-
-## Roadmap
-
-- [x] Document Loading & Text Extraction
-- [x] Text Chunking & Document Structure Preservation
-- [ ] Embeddings & Vector Database
-- [ ] Retrieval Pipeline
-- [ ] RAG Generation & Source Attribution
-- [ ] Evaluation & HADOTA Integration
-
----
-
-## Project objective
-
-The objective is not merely to connect an LLM to a vector database. The project is designed to make each stage observable and testable: source extraction, provenance, chunk quality, embedding generation, retrieval relevance, and answer grounding. Each later stage should be validated against explicit experiments rather than treated as successful simply because the pipeline runs.
-
-**Current milestone:** a tested local document-ingestion and Markdown-aware chunking foundation, ready for embedding experiments.
+Each stage consumes validated outputs from the previous stage. Existing ingestion, chunking, embedding, and vector-store artifacts are reused rather than rebuilt unnecessarily. Experimental results are reported as measured; successful infrastructure validation is not presented as proof of retrieval or answer quality.
