@@ -100,3 +100,8 @@ data/experiments/day1_fixtures/storage/
 # Unused historical notebook fixtures
 # ==========================================
 notebooks/data/experiments/day1_fixtures/
+
+# ==========================================
+# Local ChromaDB vector store
+# ==========================================
+data/knowledge_base/vector_store/chroma/
