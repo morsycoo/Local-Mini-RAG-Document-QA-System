@@ -1,0 +1,296 @@
+{
+  "experiment": {
+    "name": "Fixed-Window vs Recursive Markdown",
+    "configuration": {
+      "chunk_size_chars": 1200,
+      "fixed_window_overlap_chars": 180,
+      "recursive_min_chunk_size_chars": 100,
+      "chunking_version": 1
+    },
+    "corpus": {
+      "document_count": 6,
+      "page_count": 6,
+      "source_characters": 118204
+    },
+    "selected_strategy": "recursive_markdown",
+    "config_signature": "555f1d45d63fb9e67e25d4493aabc970af4bc72c4e04c2c698445f4935d2944f"
+  },
+  "results": {
+    "fixed_window": {
+      "summary": {
+        "document_count": 6,
+        "page_count": 6,
+        "source_characters": 118204,
+        "chunk_count": 119,
+        "chunk_size_statistics": {
+          "mean": 1164.24,
+          "median": 1200,
+          "min": 212,
+          "max": 1200
+        },
+        "chunk_size_distribution": {
+          "<100": 0,
+          "100-399": 3,
+          "400-799": 2,
+          "800-1200": 114,
+          ">1200": 0
+        },
+        "covered_characters": 118204,
+        "source_coverage_percent": 100.0,
+        "structural_blocks": 740,
+        "preserved_structural_blocks": 699,
+        "structural_preservation_percent": 94.46,
+        "integrity_error_count": 0,
+        "integrity_errors": [],
+        "processing_time_seconds": {
+          "median": 7e-05,
+          "min": 6.9e-05,
+          "max": 7.3e-05,
+          "samples": [
+            7.3e-05,
+            7.1e-05,
+            7e-05,
+            6.9e-05,
+            6.9e-05
+          ]
+        }
+      },
+      "documents": [
+        {
+          "file_name": "README_03_Local_Runtime_Engineering.md",
+          "document_id": "5eaa2f3a4137bbd8",
+          "page_number": 1,
+          "source_characters": 14492,
+          "chunk_count": 15,
+          "chunk_size_statistics": {
+            "mean": 1134.13,
+            "median": 1200,
+            "min": 212,
+            "max": 1200
+          },
+          "source_coverage_percent": 100.0,
+          "structural_preservation_percent": 97.46,
+          "integrity_error_count": 0
+        },
+        {
+          "file_name": "README_04_prompt_construction_and_structured_output.md",
+          "document_id": "4bc29707830b7f97",
+          "page_number": 1,
+          "source_characters": 9608,
+          "chunk_count": 10,
+          "chunk_size_statistics": {
+            "mean": 1122.8,
+            "median": 1200.0,
+            "min": 428,
+            "max": 1200
+          },
+          "source_coverage_percent": 100.0,
+          "structural_preservation_percent": 97.47,
+          "integrity_error_count": 0
+        },
+        {
+          "file_name": "README_05_end_to_end_local_ai_assistant.md",
+          "document_id": "6e0ae6c5f11c01b6",
+          "page_number": 1,
+          "source_characters": 32360,
+          "chunk_count": 32,
+          "chunk_size_statistics": {
+            "mean": 1185.62,
+            "median": 1200.0,
+            "min": 740,
+            "max": 1200
+          },
+          "source_coverage_percent": 100.0,
+          "structural_preservation_percent": 93.68,
+          "integrity_error_count": 0
+        },
+        {
+          "file_name": "README_06_prompt_regression_testing.md",
+          "document_id": "1f8658d7b4d1d931",
+          "page_number": 1,
+          "source_characters": 22690,
+          "chunk_count": 23,
+          "chunk_size_statistics": {
+            "mean": 1158.7,
+            "median": 1200,
+            "min": 250,
+            "max": 1200
+          },
+          "source_coverage_percent": 100.0,
+          "structural_preservation_percent": 98.64,
+          "integrity_error_count": 0
+        },
+        {
+          "file_name": "README_07_hadota_web_chat.md",
+          "document_id": "17f4f629bc6c06aa",
+          "page_number": 1,
+          "source_characters": 9497,
+          "chunk_count": 10,
+          "chunk_size_statistics": {
+            "mean": 1111.7,
+            "median": 1200.0,
+            "min": 317,
+            "max": 1200
+          },
+          "source_coverage_percent": 100.0,
+          "structural_preservation_percent": 77.78,
+          "integrity_error_count": 0
+        },
+        {
+          "file_name": "README_08_HADOTA_Local_AI_Assistant.md",
+          "document_id": "b8c040cc92d5243c",
+          "page_number": 1,
+          "source_characters": 29557,
+          "chunk_count": 29,
+          "chunk_size_statistics": {
+            "mean": 1193,
+            "median": 1200,
+            "min": 997,
+            "max": 1200
+          },
+          "source_coverage_percent": 100.0,
+          "structural_preservation_percent": 85.71,
+          "integrity_error_count": 0
+        }
+      ]
+    },
+    "recursive_markdown": {
+      "summary": {
+        "document_count": 6,
+        "page_count": 6,
+        "source_characters": 118204,
+        "chunk_count": 228,
+        "chunk_size_statistics": {
+          "mean": 518.44,
+          "median": 457.5,
+          "min": 22,
+          "max": 1185
+        },
+        "chunk_size_distribution": {
+          "<100": 19,
+          "100-399": 76,
+          "400-799": 85,
+          "800-1200": 48,
+          ">1200": 0
+        },
+        "covered_characters": 118204,
+        "source_coverage_percent": 100.0,
+        "structural_blocks": 740,
+        "preserved_structural_blocks": 731,
+        "structural_preservation_percent": 98.78,
+        "integrity_error_count": 0,
+        "integrity_errors": [],
+        "processing_time_seconds": {
+          "median": 0.01159,
+          "min": 0.007432,
+          "max": 0.013968,
+          "samples": [
+            0.012189,
+            0.01159,
+            0.013968,
+            0.010599,
+            0.007432
+          ]
+        }
+      },
+      "documents": [
+        {
+          "file_name": "README_03_Local_Runtime_Engineering.md",
+          "document_id": "5eaa2f3a4137bbd8",
+          "page_number": 1,
+          "source_characters": 14492,
+          "chunk_count": 32,
+          "chunk_size_statistics": {
+            "mean": 452.88,
+            "median": 444.0,
+            "min": 23,
+            "max": 1037
+          },
+          "source_coverage_percent": 100.0,
+          "structural_preservation_percent": 100.0,
+          "integrity_error_count": 0
+        },
+        {
+          "file_name": "README_04_prompt_construction_and_structured_output.md",
+          "document_id": "4bc29707830b7f97",
+          "page_number": 1,
+          "source_characters": 9608,
+          "chunk_count": 22,
+          "chunk_size_statistics": {
+            "mean": 436.73,
+            "median": 476.5,
+            "min": 22,
+            "max": 1006
+          },
+          "source_coverage_percent": 100.0,
+          "structural_preservation_percent": 100.0,
+          "integrity_error_count": 0
+        },
+        {
+          "file_name": "README_05_end_to_end_local_ai_assistant.md",
+          "document_id": "6e0ae6c5f11c01b6",
+          "page_number": 1,
+          "source_characters": 32360,
+          "chunk_count": 69,
+          "chunk_size_statistics": {
+            "mean": 468.99,
+            "median": 374,
+            "min": 26,
+            "max": 1146
+          },
+          "source_coverage_percent": 100.0,
+          "structural_preservation_percent": 98.95,
+          "integrity_error_count": 0
+        },
+        {
+          "file_name": "README_06_prompt_regression_testing.md",
+          "document_id": "1f8658d7b4d1d931",
+          "page_number": 1,
+          "source_characters": 22690,
+          "chunk_count": 48,
+          "chunk_size_statistics": {
+            "mean": 472.71,
+            "median": 411.0,
+            "min": 29,
+            "max": 1179
+          },
+          "source_coverage_percent": 100.0,
+          "structural_preservation_percent": 100.0,
+          "integrity_error_count": 0
+        },
+        {
+          "file_name": "README_07_hadota_web_chat.md",
+          "document_id": "17f4f629bc6c06aa",
+          "page_number": 1,
+          "source_characters": 9497,
+          "chunk_count": 15,
+          "chunk_size_statistics": {
+            "mean": 633.13,
+            "median": 505,
+            "min": 26,
+            "max": 1117
+          },
+          "source_coverage_percent": 100.0,
+          "structural_preservation_percent": 88.89,
+          "integrity_error_count": 0
+        },
+        {
+          "file_name": "README_08_HADOTA_Local_AI_Assistant.md",
+          "document_id": "b8c040cc92d5243c",
+          "page_number": 1,
+          "source_characters": 29557,
+          "chunk_count": 42,
+          "chunk_size_statistics": {
+            "mean": 703.74,
+            "median": 744.5,
+            "min": 30,
+            "max": 1185
+          },
+          "source_coverage_percent": 100.0,
+          "structural_preservation_percent": 96.19,
+          "integrity_error_count": 0
+        }
+      ]
+    }
+  }
+}

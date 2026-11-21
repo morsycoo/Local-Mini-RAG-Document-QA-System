@@ -1,0 +1,141 @@
+{
+  "report_name": "Day 3 Embeddings and Local Vector Database",
+  "generated_at_utc": "2026-11-21T21:41:17.629064+00:00",
+  "project": "Local Mini RAG Document Question Answering System",
+  "environment": {
+    "python_version": "3.13.0",
+    "platform": "Windows",
+    "torch_version": "2.12.0+cu130",
+    "transformers_version": "5.19.0",
+    "sentence_transformers_version": "6.3.0",
+    "tokenizers_version": "0.23.2",
+    "chromadb_version": "1.5.9",
+    "numpy_version": "2.4.5",
+    "pytest_version": "9.0.3",
+    "pydantic_version": "2.13.4",
+    "cuda_available": true,
+    "cuda_version": "13.0",
+    "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU",
+    "selected_embedding_device": null,
+    "selected_device_note": "Not independently recorded in the retained run metadata."
+  },
+  "corpus": {
+    "chunk_count": 228,
+    "document_count": 6,
+    "page_count": 6,
+    "unique_chunk_ids": 228,
+    "empty_chunk_count": 0,
+    "duplicate_chunk_id_count": 0,
+    "missing_parent_count": 0,
+    "chunks_sha256": "5d8b10ac55184124f0b0ffe7e4fad1bafd340e27d248cb31a61db4ce8d831fa2",
+    "documents_sha256": "c8f1435055ca3c6c2ff7289e2af197088a86a2e6388515adf5a8f76d50e72264"
+  },
+  "tokenization": {
+    "tokenizer_library": "tokenizers",
+    "tokenizer_file": "Hugging Face local snapshot / tokenizer.json",
+    "model_id": "intfloat/multilingual-e5-base",
+    "model_revision": "ea6fe3baa7f6bfe27fbc99fde19d01b3e2bca610",
+    "prefix": "passage: ",
+    "special_tokens_included": true,
+    "truncation": false,
+    "max_input_tokens": 512,
+    "chunks_audited": 228,
+    "statistics": {
+      "minimum": 8,
+      "median": 109.5,
+      "mean": 139.19298245614036,
+      "p95": 326.29999999999995,
+      "maximum": 452
+    },
+    "overflow_count": 0,
+    "overflow_chunk_ids": [],
+    "all_chunks_within_limit": true
+  },
+  "embedding": {
+    "model_id": "intfloat/multilingual-e5-base",
+    "revision": "ea6fe3baa7f6bfe27fbc99fde19d01b3e2bca610",
+    "dimension": 768,
+    "max_sequence_length": 512,
+    "query_prefix": "query: ",
+    "passage_prefix": "passage: ",
+    "normalize_embeddings": true,
+    "count": 228,
+    "artifact_file": "embeddings/embeddings.npz",
+    "artifact_sha256": "1587343fa3e0c2b0bdca75999572684de5d6f1a247f08842c86cefcacfdc773e",
+    "manifest_sha256": "a17c6e49eda82c7bc759b74b5fd7cf9dd70fbf16e9ef5ec272523d2bc3baa073",
+    "validation": {
+      "shape": [
+        228,
+        768
+      ],
+      "dtype": "float32",
+      "all_finite": true,
+      "zero_vector_count": 0,
+      "mean_l2_norm": 1.0,
+      "minimum_l2_norm": 0.9999999403953552,
+      "maximum_l2_norm": 1.0000001192092896,
+      "chunk_id_alignment": true
+    },
+    "embedding_batch_size": null,
+    "embedding_duration_seconds": null,
+    "unrecorded_metrics_note": "Embedding batch size and generation duration were not available in the retained execution evidence."
+  },
+  "vector_database": {
+    "engine": "ChromaDB",
+    "client_type": "PersistentClient",
+    "persistence_path": "data/knowledge_base/vector_store/chroma/",
+    "collection_name": "hadota_chunks_e5_base_v1",
+    "count_after_reopen": 228,
+    "distance_metric": "cosine",
+    "collection_metadata": {
+      "distance_metric": "cosine",
+      "embedding_revision": "ea6fe3baa7f6bfe27fbc99fde19d01b3e2bca610",
+      "embedding_model": "intfloat/multilingual-e5-base",
+      "embedding_dimension": 768
+    },
+    "hnsw_configuration": {
+      "space": "cosine",
+      "ef_construction": 100,
+      "ef_search": 100,
+      "max_neighbors": 16,
+      "resize_factor": 1.2,
+      "sync_threshold": 1000
+    },
+    "embedding_function": null,
+    "stored_ids_match_source_chunk_ids": true,
+    "indexing_batch_size": 64,
+    "idempotency": {
+      "previous_count": 228,
+      "count_after_reindex": 228,
+      "processed_records": 228,
+      "duplicate_records_created": 0,
+      "source": "Previously observed idempotency test."
+    }
+  },
+  "testing": {
+    "full_suite": {
+      "passed": 727,
+      "failed": 0,
+      "warnings": 23,
+      "duration_seconds": 55.88,
+      "source": "Previously observed full pytest output.",
+      "freshly_executed_by_this_report_script": false
+    },
+    "coverage_measured": false
+  },
+  "limitations": [
+    "Embedding generation duration was not retained.",
+    "Embedding generation batch size was not independently verified.",
+    "Selected runtime device was not independently recorded.",
+    "Retrieval quality metrics have not yet been evaluated.",
+    "The full test-suite result is historical evidence, not a new run."
+  ],
+  "overall_validation": {
+    "corpus_valid": true,
+    "tokenization_valid": true,
+    "embedding_artifacts_valid": true,
+    "vector_database_reopened": true,
+    "vector_database_ids_match": true,
+    "retrieval_quality_evaluated": false
+  }
+}
